@@ -1,6 +1,10 @@
-use std::io::{stdout, self, Write};
+use std::io::{self, stdout, Write};
 
-use termion::{raw::{RawTerminal, IntoRawMode}, event::Key, input::TermRead};
+use termion::{
+    event::Key,
+    input::TermRead,
+    raw::{IntoRawMode, RawTerminal},
+};
 
 use crate::Position;
 
@@ -18,10 +22,7 @@ impl Terminal {
     pub fn default() -> Result<Self, std::io::Error> {
         let size = termion::terminal_size()?;
         Ok(Self {
-            size: Size {
-                width: size.0,
-                height: size.1,
-            },
+            size: Size { width: size.0, height: size.1 },
             _stdout: stdout().into_raw_mode()?,
         })
     }
@@ -40,7 +41,7 @@ impl Terminal {
 
     #[allow(clippy::cast_possible_truncation)]
     pub fn cursor_position(position: &Position) {
-        let Position{mut x, mut y} = position;
+        let Position { mut x, mut y } = position;
         x = x.saturating_add(1);
         y = y.saturating_add(1);
         let x = x as u16;

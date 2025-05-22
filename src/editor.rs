@@ -1,6 +1,6 @@
 use termion::event::Key;
 
-use crate::{Terminal, Document, Row};
+use crate::{Document, Row, Terminal};
 
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
@@ -91,7 +91,7 @@ impl Editor {
                 if x < width {
                     x = x.saturating_add(1);
                 }
-            },
+            }
             Key::PageUp => y = 0,
             Key::PageDown => y = height,
             Key::Home => x = 0,
